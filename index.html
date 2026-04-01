@@ -147,10 +147,7 @@
 </div>
 
 <script>
-    // ===================== المرحلة 2 فقط: السوق الأساسي (Acheteur) =====================
-    // جميع الشاشات الخاصة بالمرحلة 2 فقط حسب المطلوب (19 شاشة)
-    // التوزيع المتسلسل: Inejih 6 شاشات، Cheick Hama 6 شاشات، Ahmetou 7 شاشات
-    
+
     const phase2Screens = [
         // === Inejih (6 شاشات) - من 1 إلى 6 ===
         { id: 1, src: "achetuer_screen home screen.jpeg", title: "الصفحة الرئيسية للمشتري", phase: "phase2", type: "acheteur", assign: "Inejih", desc: "واجهة السوق الرئيسية تعرض العروض المميزة والحيوانات القريبة مع فلتر سريع.", tech: ["Flutter", "Django"], libs: ["cached_network_image", "flutter_bloc"], flow: "GET /api/marketplace → عرض قائمة الحيوانات مع صور وتفاصيل أولية." },
