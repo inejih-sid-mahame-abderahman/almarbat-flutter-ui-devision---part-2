@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ALMARBAT · منصة المواشي | معرض الشاشات التفاعلي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #0f172a;
+            scroll-behavior: smooth;
+        }
+
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c2410c;
+            border-radius: 10px;
+        }
+
+        /* الهيدر الثابت */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 2px solid rgba(193, 65, 12, 0.25);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+        }
+
+        .title-section h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #9a3412, #c2410c, #ea580c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .title-section p {
+            text-align: center;
+            color: #475569;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* شريط التصفية */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem 1.6rem;
+            font-weight: 600;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            font-family: inherit;
+            color: #1e293b;
+        }
+
+        .filter-btn.active {
+            background: #c2410c;
+            border-color: #c2410c;
+            color: white;
+            box-shadow: 0 8px 18px rgba(194, 65, 12, 0.25);
+        }
+
+        /* لوحة الإحصائيات – تخصيص حسب الفريق */
+        .team-dashboard {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .stats-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 280px;
+            background: white;
+            border-radius: 2rem;
+            padding: 1.5rem 1.2rem;
+            text-align: center;
+            transition: all 0.25s;
+            cursor: pointer;
+            border: 1px solid #fed7aa;
+            box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            background: #fff7ed;
+            border-color: #ea580c;
+        }
+
+        .stat-name {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #9a3412;
+        }
+
+        .stat-count {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #c2410c;
+            line-height: 1;
+            margin: 0.5rem 0;
+        }
+
+        .stat-sub {
+            font-size: 0.8rem;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .badge-team {
+            background: #ffedd5;
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 12px;
+            display: inline-block;
+            color: #7c2d12;
+        }
+
+        /* شبكة البطاقات */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 2.5rem auto;
+            padding: 0 2rem 3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.8rem;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.12);
+            border: 1px solid #f1f3f7;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 36px -16px rgba(0, 0, 0, 0.2);
+            border-color: #fed7aa;
+        }
+
+        .card-img {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            object-fit: cover;
+            background: #eef2f6;
+            display: block;
+        }
+
+        .card-content {
+            padding: 1rem 1.2rem 1.3rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-type {
+            font-size: 0.65rem;
+            background: #fef3c7;
+            padding: 0.25rem 0.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #b45309;
+        }
+
+        .assign-info {
+            font-size: 0.7rem;
+            color: #4b5563;
+            background: #f8fafc;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0.4rem 0 0.6rem;
+        }
+
+        .btn-details {
+            background: #c2410c;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 0.6rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.6rem;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-details:hover {
+            background: #9a3412;
+            transform: scale(0.98);
+        }
+
+        /* مودال التفاصيل المتقدم (شامل التقنيات والتحليل) */
+        .detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.25s ease;
+        }
+
+        .detail-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .detail-container {
+            max-width: 1300px;
+            width: 92%;
+            max-height: 90vh;
+            background: white;
+            border-radius: 2rem;
+            overflow-y: auto;
+            direction: rtl;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #ffedd5;
+            background: #fffaf5;
+            position: sticky;
+            top: 0;
+        }
+
+        .close-detail {
+            background: #eef2ff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-detail:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        .detail-body {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .detail-image-area {
+            flex: 1.2;
+            min-width: 260px;
+        }
+
+        .detail-image {
+            width: 100%;
+            max-height: 65vh;
+            object-fit: contain;
+            border-radius: 1.5rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-info {
+            flex: 1;
+            background: #fef9e8;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+        }
+
+        .tech-badge {
+            background: #c2410c;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .assign-badge {
+            background: #2c3e66;
+        }
+
+        .footer-note {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 1rem;
+            color: #334155;
+        }
+
+        .no-results {
+            text-align: center;
+            grid-column: 1/-1;
+            padding: 3rem;
+            background: #fff7ed;
+            border-radius: 2rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 720px) {
+            .detail-body {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                flex-direction: column;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="sticky-header">
+    <div class="header-container">
+        <div class="title-section">
+            <h1>🐫 المرابط · ALMARBAT</h1>
+            <p>منصة إدارة الثروة الحيوانية | معرض الشاشات المتكامل (ويب + موبايل) مع تفاصيل كل واجهة والتقنيات المستخدمة</p>
+        </div>
+        <div class="filter-bar" id="filterBar"></div>
+    </div>
+</div>
+
+<!-- لوحة إحصائيات الفرق -->
+<div class="team-dashboard" id="teamDashboard">
+    <div class="stats-grid" id="statsGrid"></div>
+</div>
+
+<div class="gallery-container">
+    <div class="grid" id="galleryGrid"></div>
+</div>
+
+<footer style="text-align:center; padding:2rem; border-top:1px solid #e9eef3; color:#5b6e8c; background:white;">
+    <span>✨ ALMARBAT · جميع الشاشات المعروضة مع تحليل تقني كامل (Frontend/Backend Libraries) ✨</span>
+</footer>
+
+<!-- مودال عرض التفاصيل الكاملة (تقنيات + توزيع + تحليل) -->
+<div id="detailOverlay" class="detail-overlay">
+    <div class="detail-container">
+        <div class="detail-header">
+            <h2 id="detailTitle">تفاصيل الشاشة التقنية</h2>
+            <button class="close-detail" id="closeDetailBtn">✕</button>
+        </div>
+        <div id="detailBody" class="detail-body"></div>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // قاعدة بيانات كاملة للشاشات (47 شاشة) مع توزيع دقيق:
+    // - Inejih : جميع شاشات الويب (admin) + شاشات livreur
+    // - Cheick Hama & Ahmetou : باقي الشاشات (acheteur, vendeur, preparateur)
+    // ============================================================
+    const screensMaster = [
+        // Acheteur (22) – لفريق Cheick Hama & Ahmetou
+        { src: "all users _screen loginscreen.jpeg", title: "تسجيل الدخول | Login", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "شاشة دخول المستخدم. تستخدم Flutter + Riverpod، Dio للـ API، JWT مع Django REST." },
+        { src: "all users _screen create acount screen.jpeg", title: "إنشاء حساب | Sign Up", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "تسجيل مستخدم جديد مع OTP عبر Twilio، Flutter Secure Storage." },
+        { src: "all users _screen reinitiales pasword screen.jpeg", title: "إعادة تعيين كلمة المرور", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "طلب OTP عبر SMS، Django PasswordReset." },
+        { src: "all users _screen otp screen.jpeg", title: "رمز التحقق OTP", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "إدخال الرمز المؤقت، Flutter + Redis backend." },
+        { src: "achetuer_screen home screen.jpeg", title: "الصفحة الرئيسية (مشترٍ)", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "عرض الحيوانات، Flutter + cached_network_image + Riverpod." },
+        { src: "achetuer_screen animal detiaels.jpeg", title: "تفاصيل الحيوان", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "صفحة عرض السعر والوصف، GoRouter + Django Filter." },
+        { src: "achetuer_screen filtering process screen.jpeg", title: "نتائج فارغة", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "عند عدم وجود نتائج، Flutter UI واضح." },
+        { src: "achetuer_screen filtering process2 screen.jpeg", title: "فلتر متقدم", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "تصفية حسب السعر والنوع، React Query لواجهة الويب." },
+        { src: "achetuer_screen paiment process screen.jpeg", title: "اختيار التوصيل", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "Geolocator + Google Maps Flutter." },
+        { src: "achetuer_screen paiment process screen2.jpeg", title: "خيارات التحضير", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "تقطيع/شواء، إدارة الحالة عبر Riverpod." },
+        { src: "achetuer_screen paiment process screen3.jpeg", title: "ملخص الطلب", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "عرض السعر الإجمالي، Django REST لحساب الضرائب." },
+        { src: "achetuer_screen paiment process screen4.jpeg", title: "الدفع Bankily", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "رمز الدفع، تكامل مع Bankily mock، qrcode.react في الويب." },
+        { src: "achetuer_screen paiment process screen5.jpeg", title: "فشل الدفع", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "إعادة المحاولة، توثيق الأخطاء." },
+        { src: "achetuer_screen paiment process screen6.jpeg", title: "نجاح الدفع", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "تأكيد الطلب، WebHook." },
+        { src: "achetuer_screen order_history screen.jpeg", title: "سجل الطلبات", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "Flutter ListView + Pagination من Django." },
+        { src: "achetuer_screen profile screen.jpeg", title: "الملف الشخصي", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "تحديث البيانات، Flutter Secure Storage." },
+        { src: "achetuer_screen notification screen.jpeg", title: "الإشعارات", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "Firebase Cloud Messaging + flutter_local_notifications." },
+        { src: "achetuer_screen qr code scanning screen.jpeg", title: "مسح QR", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "mobile_scanner لمسح رمز الحيوان." },
+        { src: "achetuer_screen group paying detields screen.jpeg", title: "الشراء الجماعي", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "مشاركة الرابط، WebSockets لتحديثات المجموعة." },
+        { src: "achetuer_screengroup buying process screen.jpeg", title: "عملية الشراء الجماعي", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "دعوة أصدقاء، مشاركة عبر واتساب." },
+        { src: "achetuer_screen animal preperaiton status screen.jpeg", title: "حالة التجهيز", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "تتبع مراحل التحضير، FCM push." },
+        { src: "achetuer_screen splash screen.jpeg", title: "شاشة البداية", type: "acheteur", assign: "Cheick Hama & Ahmetou", desc: "Flutter native splash + shared_preferences." },
+
+        // Vendeur (5) – Cheick Hama & Ahmetou
+        { src: "veendeur_screen home screen.jpeg", title: "لوحة البائع", type: "vendeur", assign: "Cheick Hama & Ahmetou", desc: "إحصائيات المبيعات، fl_chart + Django stats." },
+        { src: "veendeur_screen adding animal process screen.jpeg", title: "إضافة حيوان 1", type: "vendeur", assign: "Cheick Hama & Ahmetou", desc: "معالج خطوات، image_picker." },
+        { src: "veendeur_screen adding animal process screen2.jpeg", title: "إضافة حيوان 2", type: "vendeur", assign: "Cheick Hama & Ahmetou", desc: "سعر ووصف، React Hook Form للويب." },
+        { src: "veendeur_screen adding animal process screen3.jpeg", title: "إضافة حيوان 3", type: "vendeur", assign: "Cheick Hama & Ahmetou", desc: "رفع صور + موقع GPS." },
+        { src: "veendeur_screen adding animal process screen4.jpeg", title: "نشر الإعلان", type: "vendeur", assign: "Cheick Hama & Ahmetou", desc: "عرض QR للمشاركة، Cloudinary." },
+
+        // Preparateur (3) – Cheick Hama & Ahmetou
+        { src: "preperation guy _screen home screen.jpeg", title: "لوحة الجزار", type: "preparateur", assign: "Cheick Hama & Ahmetou", desc: "WebSockets لتحديث الطلبات، Riverpod." },
+        { src: "preperation guy _screen preperationd orders order screen.jpeg", title: "طلبات التجهيز", type: "preparateur", assign: "Cheick Hama & Ahmetou", desc: "قائمة مهام، مؤقت زمني." },
+        { src: "preperation guy _screen preperationd etuields order screen.jpeg", title: "تفاصيل التجهيز", type: "preparateur", assign: "Cheick Hama & Ahmetou", desc: "تأكيد بالـ QR Code." },
+
+        // Livreur (4) – مخصصة لـ Inejih
+        { src: "livruer_screen delivary ordering detials screen.jpeg", title: "تفاصيل التوصيل", type: "livreur", assign: "Inejih", desc: "Flutter + Google Maps، Geolocator، مسار محسن." },
+        { src: "livruer_screen delivary ordering detials screen2.jpeg", title: "مهام التوصيل", type: "livreur", assign: "Inejih", desc: "قائمة المهام النشطة، FCM لإشعارات جديدة." },
+        { src: "livruer_screen map screen.jpeg", title: "خريطة الملاحة", type: "livreur", assign: "Inejih", desc: "OpenStreetMap / Google Maps integration." },
+        { src: "livruer_screen qr code screen.jpeg", title: "مسح QR للتسليم", type: "livreur", assign: "Inejih", desc: "mobile_scanner، تأكيد التسليم." },
+
+        // Admin Web UI (13) – جميعها لـ Inejih
+        { src: "admin_dashbaord web ui login page.jpeg", title: "دخول المشرف", type: "admin", assign: "Inejih", desc: "Next.js + Tailwind + ShadCN UI، JWT، Axios." },
+        { src: "admin_dashbaord web ui otp page.jpeg", title: "OTP المشرف", type: "admin", assign: "Inejih", desc: "2FA باستخدام TOTP، react-query." },
+        { src: "admin_dashbaord web ui dashabord page.jpeg", title: "لوحة التحكم الرئيسية", type: "admin", assign: "Inejih", desc: "Recharts لإحصائيات، TanStack Query، بيانات حية." },
+        { src: "admin_dashbaord web ui user managments page.jpeg", title: "إدارة المستخدمين", type: "admin", assign: "Inejih", desc: "جدول تفاعلي (ShadCN)، Django Filter." },
+        { src: "admin_dashbaord web ui saller managments page.jpeg", title: "إدارة البائعين", type: "admin", assign: "Inejih", desc: "التحقق من البائعين، مخططات أداء." },
+        { src: "admin_dashbaord web ui ssailelr listing approvments page.jpeg", title: "إدارة القوائم", type: "admin", assign: "Inejih", desc: "موافقة على الإعلانات، إجراءات مجمعة." },
+        { src: "admin_dashbaord web ui order approvments page.jpeg", title: "إدارة الطلبات", type: "admin", assign: "Inejih", desc: "تحديث الحالة، optimistic updates." },
+        { src: "admin_dashbaord web ui paiements manegments page.jpeg", title: "إدارة المدفوعات", type: "admin", assign: "Inejih", desc: "جدول المعاملات، تصدير CSV." },
+        { src: "admin_dashbaord web ui delivery manegments page.jpeg", title: "إدارة السائقين", type: "admin", assign: "Inejih", desc: "تتبع حي، Leaflet maps، مقاييس الأداء." },
+        { src: "admin_dashbaord web ui animal preperation manegments page.jpeg", title: "إدارة الجزارين", type: "admin", assign: "Inejih", desc: "تحليل أوقات التحضير." },
+        { src: "admin_dashbaord web ui settings page.jpeg", title: "إعدادات المنصة", type: "admin", assign: "Inejih", desc: "React Hook Form + Zod، إعدادات Django." }
+    ];
+
+    // إزالة التكرارات حسب src
+    const uniqueMap = new Map();
+    screensMaster.forEach(s => { if (!uniqueMap.has(s.src)) uniqueMap.set(s.src, s); });
+    const finalScreens = Array.from(uniqueMap.values());
+
+    // إحصائيات الفرق
+    let statsInejih = 0, statsDuo = 0;
+    finalScreens.forEach(s => {
+        if (s.assign === "Inejih") statsInejih++;
+        else statsDuo++;
+    });
+
+    let activeFilter = "tous";
+    const filterCategories = [
+        { id: "tous", label: "🌟 جميع الشاشات" },
+        { id: "acheteur", label: "🛒 مشترٍ (Acheteur)" },
+        { id: "vendeur", label: "🌾 بائع (Vendeur)" },
+        { id: "livreur", label: "🚚 موصل (Livreur)" },
+        { id: "preparateur", label: "🔪 جزار (Préparateur)" },
+        { id: "admin", label: "⚙️ ويب المشرف (Admin)" }
+    ];
+
+    // دالة عرض أزرار الفلتر
+    function renderFilters() {
+        const bar = document.getElementById('filterBar');
+        bar.innerHTML = '';
+        filterCategories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = `filter-btn ${activeFilter === cat.id ? 'active' : ''}`;
+            btn.textContent = cat.label;
+            btn.onclick = () => { activeFilter = cat.id; renderFilters(); renderGallery(); };
+            bar.appendChild(btn);
+        });
+    }
+
+    // عرض إحصائيات الفريق مع ربط نقر يؤدي إلى عرض التنبيه مع قائمة (يمكن تحسينها لاحقاً)
+    function renderTeamStats() {
+        const container = document.getElementById('statsGrid');
+        container.innerHTML = `
+            <div class="stat-card" data-team="Inejih">
+                <div class="stat-name">🧑‍💻 إنجيه (Inejih)</div>
+                <div class="stat-count">${statsInejih}</div>
+                <div class="stat-sub">شاشة مخصصة</div>
+                <div class="badge-team">🚚 جميع شاشات التوصيل + 🖥️ كل واجهات الأدمن (13 واجهة ويب)</div>
+            </div>
+            <div class="stat-card" data-team="Duo">
+                <div class="stat-name">👥 شيخ حما & أمحطو (Cheick Hama & Ahmetou)</div>
+                <div class="stat-count">${statsDuo}</div>
+                <div class="stat-sub">شاشة مخصصة</div>
+                <div class="badge-team">📱 جميع شاشات acheteur, vendeur, préparateur + باقي الموبايل</div>
+            </div>
+        `;
+        // إضافة حدث نقر: عند الضغط على البطاقة يظهر تنبيه بعدد الشاشات
+        const ineCard = document.querySelector('.stat-card[data-team="Inejih"]');
+        const duoCard = document.querySelector('.stat-card[data-team="Duo"]');
+        if (ineCard) ineCard.addEventListener('click', () => alert(`🧑‍💻 إنجيه: ${statsInejih} شاشة (كل شاشات التوصيل + كامل واجهات الأدمن).`));
+        if (duoCard) duoCard.addEventListener('click', () => alert(`👥 فريق شيخ حما وأمحطو: ${statsDuo} شاشة (المشترين، البائعين، الجزارين).`));
+    }
+
+    // مودال التفاصيل الغنية (تقنيات متقدمة)
+    function showDetail(screen) {
+        const detailContainer = document.getElementById('detailBody');
+        document.getElementById('detailTitle').innerHTML = `${screen.title} | المُسند إلى: ${screen.assign}`;
+        const isInejih = screen.assign === "Inejih";
+        const frontendTech = isInejih 
+            ? "Next.js, TypeScript, Tailwind CSS, ShadCN UI, React Query, Axios, Recharts, React Leaflet, qrcode.react, react-qr-reader, Framer Motion"
+            : "Flutter, Riverpod, Dio, GoRouter, cached_network_image, google_maps_flutter, mobile_scanner, flutter_local_notifications, geolocator, image_picker";
+        const backendTech = "Django REST Framework, Simple JWT, PostgreSQL, Redis, Celery, Cloudinary, Firebase Cloud Messaging, Django Filter, Twilio (SMS OTP)";
+
+        const htmlContent = `
+            <div class="detail-image-area">
+                <img class="detail-image" src="${screen.src}" alt="${screen.title}" onerror="this.src='https://placehold.co/600x1000?text=Almarbat+Preview'">
+            </div>
+            <div class="detail-info">
+                <div>
+                    <span class="tech-badge">🎯 ${screen.type.toUpperCase()}</span>
+                    <span class="tech-badge assign-badge">👥 ${screen.assign}</span>
+                </div>
+                <h2 style="margin: 1rem 0 0.5rem;">${screen.title}</h2>
+                <div class="footer-note" style="background:#f1f5f9; padding:1rem; border-radius:1rem;">
+                    <strong>📱 تقنيات الواجهة (Frontend):</strong><br> ${frontendTech}<br><br>
+                    <strong>⚙️ الخلفية والتكامل (Backend / APIs):</strong><br> ${backendTech}<br><br>
+                    <strong>📌 الوصف الوظيفي والتدفق:</strong><br> ${screen.desc}
+                </div>
+                <hr style="margin: 1rem 0;">
+                <div><strong>🏗️ العمارة:</strong> Web (Next.js) + Mobile (Flutter) ←→ Django REST API ←→ PostgreSQL + Redis. تواصل لحظي عبر WebSockets / FCM.</div>
+                <div style="margin-top:0.8rem;"><strong>🔐 الأمان:</strong> JWT, OTP عبر SMS, QR Code للتحقق، HTTPS.</div>
+                <button class="btn-details" id="closeDetailBtnInside" style="margin-top:1.5rem; background:#1e293b;">✖ إغلاق التفاصيل</button>
+            </div>
+        `;
+        detailContainer.innerHTML = htmlContent;
+        document.getElementById('detailOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        const insideClose = document.getElementById('closeDetailBtnInside');
+        if (insideClose) insideClose.addEventListener('click', closeDetail);
+    }
+
+    function closeDetail() {
+        document.getElementById('detailOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // عرض معرض الشاشات
+    function renderGallery() {
+        let filtered = finalScreens;
+        if (activeFilter !== "tous") filtered = finalScreens.filter(s => s.type === activeFilter);
+        const grid = document.getElementById('galleryGrid');
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="no-results">✨ لا توجد شاشات في هذا التصنيف ✨</div>`;
+            return;
+        }
+        let html = '';
+        filtered.forEach((screen, idx) => {
+            let typeLabel = '';
+            if (screen.type === 'acheteur') typeLabel = 'مشترٍ';
+            else if (screen.type === 'vendeur') typeLabel = 'بائع';
+            else if (screen.type === 'livreur') typeLabel = 'موصل';
+            else if (screen.type === 'preparateur') typeLabel = 'جزار';
+            else if (screen.type === 'admin') typeLabel = 'مشرف ويب';
+            html += `
+                <div class="card" data-idx="${idx}">
+                    <img class="card-img" src="${screen.src}" alt="${screen.title}" loading="lazy" onerror="this.src='https://placehold.co/500x800?text=ALMARBAT'">
+                    <div class="card-content">
+                        <div class="card-title">
+                            <span>${screen.title}</span>
+                            <span class="badge-type">${typeLabel}</span>
+                        </div>
+                        <div class="assign-info">👥 المسند إلى: ${screen.assign}</div>
+                        <button class="btn-details details-btn" data-idx="${idx}">📋 تفاصيل كاملة (تقنيات + تحليل)</button>
+                    </div>
+                </div>
+            `;
+        });
+        grid.innerHTML = html;
+        // ربط أزرار التفاصيل
+        document.querySelectorAll('.details-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const idx = parseInt(btn.getAttribute('data-idx'));
+                const scr = filtered[idx];
+                if (scr) showDetail(scr);
+            });
+        });
+        // عند النقر على الصورة نفسها (البطاقة) عرض الصورة فقط في مودال مشابه (لرؤية الصورة)
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.classList.contains('btn-details')) return;
+                const imgSrc = card.querySelector('.card-img').src;
+                const title = card.querySelector('.card-title span:first-child').innerText;
+                // نعرض صورة مكبرة مؤقتة عبر مودال بسيط
+                const modalImg = document.createElement('div');
+                modalImg.style.position = 'fixed';
+                modalImg.style.top = '0'; modalImg.style.left = '0';
+                modalImg.style.width = '100%'; modalImg.style.height = '100%';
+                modalImg.style.background = 'rgba(0,0,0,0.9)';
+                modalImg.style.display = 'flex'; modalImg.style.alignItems = 'center'; modalImg.style.justifyContent = 'center';
+                modalImg.style.zIndex = '3000';
+                modalImg.innerHTML = `<img src="${imgSrc}" style="max-width:90%; max-height:90%; border-radius:24px; box-shadow:0 20px 35px black;" alt="${title}"><button style="position:absolute;top:25px;right:25px;background:#c2410c;border:none;color:white;font-size:28px;width:50px;height:50px;border-radius:60px;cursor:pointer;">✕</button>`;
+                document.body.appendChild(modalImg);
+                modalImg.querySelector('button').onclick = () => modalImg.remove();
+                modalImg.onclick = (e) => { if(e.target === modalImg) modalImg.remove(); };
+            });
+        });
+    }
+
+    document.getElementById('closeDetailBtn').addEventListener('click', closeDetail);
+    document.getElementById('detailOverlay').addEventListener('click', (e) => { if (e.target === document.getElementById('detailOverlay')) closeDetail(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('detailOverlay').classList.contains('active')) closeDetail(); });
+
+    function init() {
+        renderFilters();
+        renderTeamStats();
+        renderGallery();
+    }
+    init();
+</script>
+</body>
+</html>

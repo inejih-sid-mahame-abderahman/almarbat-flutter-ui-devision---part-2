@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>ALMARBAT • المرحلة 2 فقط | توزيع الشاشات + تحميل فردي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Cairo:wght@400;500;600;700;800&display=swap');
+        * { transition: all 0.2s ease; }
+        body { font-family: 'Cairo', 'Inter', system-ui; background: #f8fafc; }
+        .screen-card { transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        .screen-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 25px 35px -12px rgba(0,0,0,0.2); }
+        .phase-header { border-right: 8px solid #f59e0b; background: linear-gradient(90deg, transparent, #fffbeb); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
+        @keyframes fadeSlide { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+        .animate-entry { animation: fadeSlide 0.4s ease-out; }
+        .download-btn {
+            transition: all 0.2s ease;
+        }
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+        .team-badge {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+        }
+        .phase2-glow {
+            box-shadow: 0 0 0 2px #f59e0b20, 0 8px 20px -8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER مع التركيز على المرحلة 2 فقط -->
+<div class="bg-gradient-to-r from-amber-800 to-amber-600 text-white shadow-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-5 py-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-cow text-4xl drop-shadow"></i>
+            <div>
+                <h1 class="text-2xl md:text-3xl font-black tracking-tight">ALMARBAT • المرحلة 2</h1>
+                <p class="text-xs opacity-80">السوق الأساسي (Acheteur) | التوزيع المتسلسل 6+6+7 شاشات</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="bg-white/20 backdrop-blur-sm rounded-full px-5 py-1 text-sm font-bold">🛍️ PHASE 2 ONLY • READY FOR DEVELOPMENT</div>
+            <p class="text-xs mt-1 font-mono">توزيع عادل: Inejih (6) • Cheick Hama (6) • Ahmetou (7) | 19 شاشة</p>
+        </div>
+        <div class="flex gap-2 text-sm font-bold">
+            <span class="bg-black/30 px-4 py-1 rounded-full"><i class="fa-regular fa-clock"></i> 19 شاشة | المرحلة الذهبية</span>
+        </div>
+    </div>
+</div>
+
+<!-- لوحة التحكم السريعة: أزرار التحميل الفردي لكل عضو -->
+<div class="max-w-7xl mx-auto px-5 pt-8 pb-4">
+    <div class="bg-gradient-to-r from-amber-50 to-white rounded-2xl p-5 shadow-lg border border-amber-200 mb-8">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+                <h2 class="text-xl font-black text-amber-800 flex items-center gap-2"><i class="fa-solid fa-download"></i> تحميل شاشات كل مطور بشكل فردي</h2>
+                <p class="text-sm text-gray-600 mt-1">اضغط على الزر لتحميل جميع شاشات العضو بصيغة JSON + قائمة منظمة</p>
+            </div>
+            <div class="flex flex-wrap gap-4">
+                <button id="downloadInejihBtn" class="download-btn bg-slate-800 hover:bg-slate-900 text-white px-6 py-3 rounded-xl font-bold shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-user-astronaut"></i> Inejih • 6 شاشات
+                    <i class="fa-solid fa-download text-sm"></i>
+                </button>
+                <button id="downloadCheickBtn" class="download-btn bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 rounded-xl font-bold shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-user-graduate"></i> Cheick Hama • 6 شاشات
+                    <i class="fa-solid fa-download text-sm"></i>
+                </button>
+                <button id="downloadAhmetouBtn" class="download-btn bg-amber-700 hover:bg-amber-800 text-white px-6 py-3 rounded-xl font-bold shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-user-tie"></i> Ahmetou • 7 شاشات
+                    <i class="fa-solid fa-download text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- إحصائيات التوزيع السريع -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+        <div class="bg-white rounded-2xl p-4 text-center shadow-md border-r-4 border-slate-700">
+            <i class="fa-solid fa-chart-simple text-3xl text-slate-600"></i>
+            <p class="text-3xl font-black mt-2">19</p>
+            <p class="text-sm font-bold">إجمالي شاشات المرحلة 2</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 text-center shadow-md border-r-4 border-emerald-700">
+            <i class="fa-solid fa-code-branch text-3xl text-emerald-600"></i>
+            <p class="text-3xl font-black mt-2">6 + 6 + 7</p>
+            <p class="text-sm font-bold">توزيع متسلسل عادل</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 text-center shadow-md border-r-4 border-amber-500">
+            <i class="fa-solid fa-store text-3xl text-amber-500"></i>
+            <p class="text-3xl font-black mt-2">السوق الأساسي</p>
+            <p class="text-sm font-bold">Acheteur • دفع • تتبع</p>
+        </div>
+    </div>
+</div>
+
+<!-- شبكة عرض الشاشات للمرحلة 2 فقط مع زر تحميل فردي لكل شاشة -->
+<div id="screensContainer" class="max-w-7xl mx-auto px-5 pb-16"></div>
+
+<!-- MODAL للتفاصيل التقنية المعمارية (محسن) -->
+<div id="techModal" class="fixed inset-0 bg-black/85 z-[9999] hidden items-center justify-center p-4 backdrop-blur-sm" onclick="if(event.target===this) closeTechModal()">
+    <div class="bg-white rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl animate-entry">
+        <div class="bg-gradient-to-r from-amber-50 to-white px-6 py-4 border-b flex justify-between items-center sticky top-0">
+            <div class="flex items-center gap-3 flex-wrap">
+                <span id="modalPhaseTag" class="bg-amber-700 text-white text-xs font-bold px-4 py-1.5 rounded-full"></span>
+                <h2 id="modalTitle" class="text-xl md:text-2xl font-bold"></h2>
+            </div>
+            <div class="flex gap-3 items-center">
+                <span id="modalAssignee" class="bg-slate-800 text-white px-4 py-1.5 rounded-full text-sm font-bold"></span>
+                <button onclick="closeTechModal()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-red-100 text-red-600">✕</button>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row overflow-auto flex-1">
+            <div class="md:w-1/2 bg-gray-900 flex items-center justify-center p-6">
+                <img id="modalImg" class="max-h-[55vh] md:max-h-[70vh] w-auto object-contain rounded-xl shadow-2xl border border-white/20" alt="screen preview">
+            </div>
+            <div class="md:w-1/2 p-6 space-y-5 overflow-y-auto">
+                <div>
+                    <h3 class="text-amber-800 font-bold text-sm uppercase tracking-wider"><i class="fa-regular fa-file-lines"></i> الوصف المعماري</h3>
+                    <p id="modalDesc" class="text-slate-700 mt-1 leading-relaxed"></p>
+                </div>
+                <div>
+                    <h3 class="text-amber-800 font-bold text-sm uppercase tracking-wider"><i class="fa-solid fa-layer-group"></i> Full-Stack التقنيات</h3>
+                    <div id="modalTechStack" class="flex flex-wrap gap-2 mt-2"></div>
+                </div>
+                <div>
+                    <h3 class="text-amber-800 font-bold text-sm uppercase tracking-wider"><i class="fa-solid fa-microchip"></i> المكتبات الأساسية</h3>
+                    <div id="modalLibraries" class="flex flex-wrap gap-2 mt-2"></div>
+                </div>
+                <div class="bg-gradient-to-r from-slate-100 to-amber-50 p-4 rounded-2xl">
+                    <h3 class="font-bold text-amber-800"><i class="fa-solid fa-diagram-project"></i> تدفق البيانات المعماري</h3>
+                    <p id="modalFlow" class="text-sm text-slate-800 mt-2 font-mono"></p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="downloadSingleScreen()" id="modalDownloadSingle" class="flex-1 bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-xl font-bold transition-all"><i class="fa-solid fa-download"></i> تحميل هذه الشاشة (PNG)</button>
+                    <button onclick="closeTechModal()" class="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white py-3 rounded-xl font-bold transition-all"><i class="fa-regular fa-circle-check"></i> إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===================== المرحلة 2 فقط: السوق الأساسي (Acheteur) =====================
+    // جميع الشاشات الخاصة بالمرحلة 2 فقط حسب المطلوب (19 شاشة)
+    // التوزيع المتسلسل: Inejih 6 شاشات، Cheick Hama 6 شاشات، Ahmetou 7 شاشات
+    
+    const phase2Screens = [
+        // === Inejih (6 شاشات) - من 1 إلى 6 ===
+        { id: 1, src: "achetuer_screen home screen.jpeg", title: "الصفحة الرئيسية للمشتري", phase: "phase2", type: "acheteur", assign: "Inejih", desc: "واجهة السوق الرئيسية تعرض العروض المميزة والحيوانات القريبة مع فلتر سريع.", tech: ["Flutter", "Django"], libs: ["cached_network_image", "flutter_bloc"], flow: "GET /api/marketplace → عرض قائمة الحيوانات مع صور وتفاصيل أولية." },
+        { id: 2, src: "achetuer_screen filtering process screen.jpeg", title: "فلتر البحث المتقدم", phase: "phase2", type: "acheteur", assign: "Inejih", desc: "فلتر حسب نوع الحيوان (خروف، ماعز، جمل، بقرة)، السعر، المدينة، الوزن.", tech: ["Flutter"], libs: ["dropdown_search", "range_slider"], flow: "تطبيق الفلاتر → GET /api/marketplace?filters=..." },
+        { id: 3, src: "achetuer_screen filtering process2 screen.jpeg", title: "نتائج الفلترة المتقدمة", phase: "phase2", type: "acheteur", assign: "Inejih", desc: "عرض النتائج بعد الفلتر مع خيارات الفرز (السعر تصاعدي/تنازلي).", tech: ["Flutter"], libs: ["shimmer"], flow: "عرض القائمة المفلترة مع lazy loading." },
+        { id: 4, src: "achetuer_screen animal detiaels.jpeg", title: "تفاصيل الحيوان (مع QR)", phase: "phase2", type: "acheteur", assign: "Inejih", desc: "صفحة متكاملة تحتوي على صور متعددة، وصف، السعر، موقع البائع، وخيارات الشراء.", tech: ["Flutter", "Google Maps"], libs: ["google_maps_flutter", "qr_flutter"], flow: "GET /api/animals/{id} → عرض تفاصيل + خريطة موقع البائع." },
+        { id: 5, src: "achetuer_screen paiment process screen.jpeg", title: "اختيار عنوان التوصيل", phase: "phase2", type: "acheteur", assign: "Inejih", desc: "إضافة عنوان جديد أو استخدام الموقع الحالي، وخيار التوصيل للمنزل أو نقطة تجمع.", tech: ["Flutter"], libs: ["geolocator", "location_picker"], flow: "تحديد العنوان → تخزين مؤقت قبل الدفع." },
+        { id: 6, src: "achetuer_screen paiment process screen2.jpeg", title: "خيارات التحضير (التقطيع)", phase: "phase2", type: "acheteur", assign: "Inejih", desc: "اختيار طريقة التحضير: كامل، مقطع، مشوي، أو حسب الطلب مع ملاحظات.", tech: ["Flutter"], libs: ["segmented_button"], flow: "تخصيص الطلب → إضافة إلى السلة." },
+        
+        // === Cheick Hama (6 شاشات) - من 7 إلى 12 ===
+        { id: 7, src: "achetuer_screen paiment process screen3.jpeg", title: "ملخص الطلب والسلة", phase: "phase2", type: "acheteur", assign: "Cheick Hama", desc: "مراجعة المنتجات، الكمية، السعر الإجمالي، رسوم التوصيل، والكوبونات.", tech: ["Flutter"], libs: ["provider"], flow: "عرض ملخص الطلب مع خيار تعديل." },
+        { id: 8, src: "achetuer_screen paiment process screen4.jpeg", title: "شاشة دفع Bankily - الكود", phase: "phase2", type: "acheteur", assign: "Cheick Hama", desc: "عرض كود الدفع الفريد الخاص بـ Bankily لإتمام المعاملة.", tech: ["Flutter"], libs: ["webview_flutter", "qr_flutter"], flow: "POST /api/payment/bankily → توليد كود الدفع." },
+        { id: 9, src: "achetuer_screen paiment process screen5.jpeg", title: "فشل الدفع", phase: "phase2", type: "acheteur", assign: "Cheick Hama", desc: "صفحة تفيد بعدم نجاح الدفع مع خيارات إعادة المحاولة أو الدعم.", tech: ["Flutter"], libs: [], flow: "معالجة خطأ الدفع → تسجيل الحدث." },
+        { id: 10, src: "achetuer_screen paiment process screen6.jpeg", title: "نجاح الدفع", phase: "phase2", type: "acheteur", assign: "Cheick Hama", desc: "تأكيد نجاح الدفع مع إشعار فوري وعرض تفاصيل الطلب.", tech: ["Flutter", "FCM"], libs: ["firebase_messaging"], flow: "POST /api/payment/confirm → تحديث الحالة + إشعار." },
+        { id: 11, src: "achetuer_screen qr code scanning screen.jpeg", title: "مسح QR لتأكيد الاستلام", phase: "phase2", type: "acheteur", assign: "Cheick Hama", desc: "المشتري يمسح QR كود عند استلام الحيوان من البائع أو الجزار.", tech: ["Flutter"], libs: ["mobile_scanner"], flow: "Scan QR → POST /api/orders/confirm-receipt" },
+        { id: 12, src: "achetuer_screen order_history screen.jpeg", title: "سجل الطلبات", phase: "phase2", type: "acheteur", assign: "Cheick Hama", desc: "عرض جميع الطلبات السابقة مع حالة كل طلب (قيد الدفع، تجهيز، توصيل، مكتمل).", tech: ["Flutter"], libs: ["intl"], flow: "GET /api/orders/history → عرض قائمة." },
+        
+        // === Ahmetou (7 شاشات) - من 13 إلى 19 ===
+        { id: 13, src: "achetuer_screen group paying detields screen.jpeg", title: "الشراء الجماعي (Group Buying)", phase: "phase2", type: "acheteur", assign: "Ahmetou", desc: "عرض تفاصيل المجموعة، عدد المشاركين، المدة المتبقية، والسعر التخفيضي.", tech: ["Flutter", "WebSocket"], libs: ["django_channels", "percent_indicator"], flow: "WebSocket تحديث مباشر لمشاركات المجموعة." },
+        { id: 14, src: "achetuer_screen notification screen.jpeg", title: "مركز الإشعارات", phase: "phase2", type: "acheteur", assign: "Ahmetou", desc: "جميع إشعارات المشتري: تأكيد الدفع، جاهزية الطلب، حالة التوصيل، عروض.", tech: ["Flutter"], libs: ["firebase_messaging", "timeago"], flow: "عرض الإشعارات مخزنة محلياً و云端." },
+        { id: 15, src: "achetuer_screen command delevery live tracking.jpeg", title: "تتبع التوصيل المباشر", phase: "phase2", type: "acheteur", assign: "Ahmetou", desc: "خريطة حية تظهر موقع السائق، الوقت المتوقع للوصول، ورقم السائق.", tech: ["Flutter", "Google Maps"], libs: ["google_maps_flutter", "web_socket_channel"], flow: "WebSocket لتحديث الموقع لحظة بلحظة." },
+        { id: 16, src: "achetuer_screen animal preperaiton status screen.jpeg", title: "حالة تجهيز الطلب", phase: "phase2", type: "acheteur", assign: "Ahmetou", desc: "عرض حالة التجهيز: انتظار، جاري التقطيع، جاهز للتسليم، مع إشعارات.", tech: ["Flutter"], libs: ["step_progress_indicator"], flow: "GET /api/orders/preparation-status" },
+        { id: 17, src: "bankily_payment_processing.jpeg", title: "معالجة الدفع Bankily", phase: "phase2", type: "acheteur", assign: "Ahmetou", desc: "شاشة انتظار أثناء التحقق من الدفع عبر Bankily مع رسوم متحركة.", tech: ["Flutter"], libs: ["lottie"], flow: "مراقبة حالة الدفع عبر polling." },
+        { id: 18, src: "bankily_payment_confirmation.jpeg", title: "تأكيد الدفع Bankily", phase: "phase2", type: "acheteur", assign: "Ahmetou", desc: "إدخال رمز التأكيد الذي يصل عبر SMS لإتمام العملية.", tech: ["Flutter"], libs: ["pinput"], flow: "POST /api/payment/verify-code → تأكيد." },
+        { id: 19, src: "achetuer_screen notification listing screen.jpeg", title: "قائمة الإشعارات التفصيلية", phase: "phase2", type: "acheteur", assign: "Ahmetou", desc: "شاشة متقدمة للإشعارات مع علامات قراءة/غير مقروءة وإمكانية حذف.", tech: ["Flutter"], libs: ["swipe_to_action"], flow: "تحديث حالة الإشعارات عبر API." }
+    ];
+    
+    // التأكد من التوزيع الصحيح (Inejih 6, Cheick 6, Ahmetou 7)
+    console.log("✅ PHASE 2 SCREENS LOADED:", phase2Screens.length);
+    console.log("Inejih screens:", phase2Screens.filter(s => s.assign === "Inejih").length);
+    console.log("Cheick Hama screens:", phase2Screens.filter(s => s.assign === "Cheick Hama").length);
+    console.log("Ahmetou screens:", phase2Screens.filter(s => s.assign === "Ahmetou").length);
+    
+    // متغيرات الحالة
+    let currentModalScreen = null;
+    
+    // دالة تحميل شاشات المطور كملف JSON + نص
+    function downloadDeveloperScreens(developerName) {
+        const devScreens = phase2Screens.filter(s => s.assign === developerName);
+        if (devScreens.length === 0) return;
+        
+        // إنشاء محتوى JSON جميل
+        const dataStr = JSON.stringify(devScreens, null, 2);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `ALMARBAT_phase2_${developerName}_${devScreens.length}_screens.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        // إنشاء ملف نصي إضافي بقائمة الشاشات
+        const listText = devScreens.map((s, idx) => `${idx+1}. ${s.title} (${s.type}) - ${s.desc.substring(0,80)}...`).join("\n");
+        const textBlob = new Blob([`قائمة شاشات ${developerName} - المرحلة 2 (${devScreens.length} شاشة):\n\n${listText}`], { type: "text/plain" });
+        const textUrl = URL.createObjectURL(textBlob);
+        const a2 = document.createElement("a");
+        a2.href = textUrl;
+        a2.download = `ALMARBAT_phase2_${developerName}_screens_list.txt`;
+        document.body.appendChild(a2);
+        a2.click();
+        document.body.removeChild(a2);
+        URL.revokeObjectURL(textUrl);
+        
+        alert(`✅ تم تحميل ${devScreens.length} شاشة للمطور ${developerName}\n📁 JSON + قائمة نصية جاهزة.`);
+    }
+    
+    // دالة تحميل شاشة فردية PNG (محاكاة تحميل الصورة)
+    function downloadSingleScreenImage(screen) {
+        if (!screen || !screen.src) return;
+        // نحاول تحميل الصورة باستخدام الرابط
+        const link = document.createElement('a');
+        link.download = `${screen.title.replace(/\s+/g, '_')}_${screen.assign}.png`;
+        link.href = screen.src;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        // في حالة الخطأ نعرض رسالة ولكنها محاولة جيدة
+        setTimeout(() => {
+            console.log(`محاولة تحميل: ${screen.title}`);
+        }, 100);
+    }
+    
+    // عرض جميع شاشات المرحلة 2 مع زر تحميل لكل شاشة
+    function renderPhase2Screens() {
+        const container = document.getElementById("screensContainer");
+        if (!phase2Screens.length) {
+            container.innerHTML = `<div class="text-center p-16 bg-white rounded-3xl shadow"><i class="fa-regular fa-face-frown text-6xl text-slate-400"></i><p class="mt-4">لا توجد شاشات في المرحلة 2</p></div>`;
+            return;
+        }
+        
+        // تجميع حسب المطور للعرض المنظم
+        const groupedByDev = {
+            "Inejih": phase2Screens.filter(s => s.assign === "Inejih"),
+            "Cheick Hama": phase2Screens.filter(s => s.assign === "Cheick Hama"),
+            "Ahmetou": phase2Screens.filter(s => s.assign === "Ahmetou")
+        };
+        
+        let html = '';
+        for (const [devName, screens] of Object.entries(groupedByDev)) {
+            if (screens.length === 0) continue;
+            let devIcon = devName === "Inejih" ? "fa-user-astronaut" : (devName === "Cheick Hama" ? "fa-user-graduate" : "fa-user-tie");
+            let devColor = devName === "Inejih" ? "slate" : (devName === "Cheick Hama" ? "emerald" : "amber");
+            
+            html += `
+                <div class="mb-12">
+                    <div class="phase-header pr-4 mb-5 p-4 rounded-2xl flex justify-between items-center flex-wrap">
+                        <div>
+                            <h2 class="text-xl font-black text-slate-800 flex items-center gap-3">
+                                <i class="fa-solid ${devIcon} text-${devColor}-600"></i> 
+                                ${devName} 
+                                <span class="text-${devColor}-600 text-base">(${screens.length} شاشة)</span>
+                            </h2>
+                            <p class="text-xs text-slate-500 mt-1">التوزيع المتسلسل: ${screens.length} شاشة من المرحلة 2 (السوق الأساسي)</p>
+                        </div>
+                        <button onclick="downloadDeveloperScreens('${devName}')" class="bg-${devColor}-600 hover:bg-${devColor}-700 text-white px-5 py-2 rounded-xl text-sm font-bold shadow flex items-center gap-2">
+                            <i class="fa-solid fa-folder-zip"></i> تحميل كل شاشات ${devName} (JSON)
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            `;
+            
+            screens.forEach(screen => {
+                html += `
+                    <div class="screen-card bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer hover:shadow-2xl transition-all" onclick='showTechModal(${JSON.stringify(screen).replace(/'/g, "\\'")})'>
+                        <div class="relative">
+                            <img src="${screen.src}" class="w-full aspect-[9/19] object-cover bg-gray-100" alt="${screen.title}" 
+                                 onerror="this.src='https://placehold.co/300x570?text=${encodeURIComponent(screen.title)}&font=cairo&bg=amber-100'">
+                            <div class="absolute top-3 right-3 bg-black/70 text-white text-[10px] px-2.5 py-1 rounded-full font-medium">
+                                ${screen.assign}
+                            </div>
+                            <button onclick="event.stopPropagation(); downloadSingleScreenImage(${JSON.stringify(screen).replace(/'/g, "\\'")})" 
+                                    class="absolute bottom-3 left-3 bg-white/90 hover:bg-amber-500 hover:text-white text-amber-700 rounded-full w-8 h-8 flex items-center justify-center shadow-md transition-all">
+                                <i class="fa-solid fa-download text-sm"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <p class="font-bold text-sm leading-tight">${screen.title}</p>
+                            <div class="flex justify-between text-[10px] text-slate-500 mt-2">
+                                <span><i class="fa-regular fa-clock"></i> ${screen.type}</span>
+                                <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded">PHASE 2</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `</div></div>`;
+        }
+        
+        container.innerHTML = html;
+    }
+    
+    // عرض المودال التقني
+    window.showTechModal = function(screen) {
+        currentModalScreen = screen;
+        document.getElementById("modalTitle").innerText = screen.title;
+        document.getElementById("modalImg").src = screen.src || "https://placehold.co/600x1100?text=Phase+2+Screen";
+        document.getElementById("modalDesc").innerText = screen.desc || "شاشة من المرحلة 2 - السوق الأساسي ALMARBAT";
+        document.getElementById("modalAssignee").innerHTML = `<i class="fa-regular fa-user"></i> ${screen.assign}`;
+        document.getElementById("modalPhaseTag").innerHTML = `<i class="fa-solid fa-store"></i> 🛍️ المرحلة 2: السوق الأساسي (Acheteur)`;
+        
+        document.getElementById("modalTechStack").innerHTML = (screen.tech || ["Flutter", "Django"]).map(t => 
+            `<span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs"><i class="fa-solid fa-code"></i> ${t}</span>`
+        ).join("");
+        
+        document.getElementById("modalLibraries").innerHTML = (screen.libs || ["dio", "provider"]).map(l => 
+            `<span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs"><i class="fa-regular fa-gem"></i> ${l}</span>`
+        ).join("");
+        
+        document.getElementById("modalFlow").innerText = screen.flow || "تدفق بيانات المرحلة 2: اختيار الحيوان → دفع → تتبع → تسليم.";
+        
+        const modal = document.getElementById("techModal");
+        modal.classList.remove("hidden");
+        modal.style.display = "flex";
+    };
+    
+    window.downloadSingleScreen = function() {
+        if (currentModalScreen) {
+            downloadSingleScreenImage(currentModalScreen);
+        } else {
+            alert("لا توجد شاشة محددة");
+        }
+    };
+    
+    window.closeTechModal = function() {
+        const modal = document.getElementById("techModal");
+        modal.style.display = "none";
+        modal.classList.add("hidden");
+        currentModalScreen = null;
+    };
+    
+    // ربط الأزرار العامة
+    document.getElementById("downloadInejihBtn").addEventListener("click", () => downloadDeveloperScreens("Inejih"));
+    document.getElementById("downloadCheickBtn").addEventListener("click", () => downloadDeveloperScreens("Cheick Hama"));
+    document.getElementById("downloadAhmetouBtn").addEventListener("click", () => downloadDeveloperScreens("Ahmetou"));
+    
+    // ربط الدوال العامة
+    window.downloadDeveloperScreens = downloadDeveloperScreens;
+    window.downloadSingleScreenImage = downloadSingleScreenImage;
+    
+    // تهيئة الصفحة
+    function init() {
+        renderPhase2Screens();
+    }
+    
+    init();
+</script>
+</body>
+</html>
